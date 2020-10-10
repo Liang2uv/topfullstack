@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { prop, modelOptions, Ref } from "@typegoose/typegoose"
+import { prop, modelOptions, Ref, arrayProp } from "@typegoose/typegoose"
 import { Episodes } from "./episode.model"
 
 // 给添加的数据加上时间戳
@@ -17,6 +17,6 @@ export class Course {
   @ApiProperty({ description: '封面图' })
   cover: string
 
-  @prop({ type: [] })
+  @prop({ type: String, ref: 'Episodes' })
   episodes: Ref<Episodes>[]
 }

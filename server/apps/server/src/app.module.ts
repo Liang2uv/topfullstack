@@ -1,10 +1,10 @@
-import { DbModule } from '@libs/db';
+import { CommonModule } from '@app/common';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [DbModule],
+  imports: [CommonModule],
   controllers: [AppController],
   providers: [AppService],
 })

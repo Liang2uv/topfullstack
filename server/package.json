@@ -9,7 +9,8 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "nest start",
+    "start:admin": "nest start -w admin",
+    "start:server": "nest start -w server",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -22,12 +23,14 @@
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
+    "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/swagger": "^4.6.1",
     "@typegoose/typegoose": "^7.4.1",
     "@types/mongoose": "^5.7.36",
     "mongoose": "^5.10.7",
+    "multer": "^1.4.2",
     "nestjs-mongoose-crud": "^2.0.0",
     "nestjs-typegoose": "^7.1.38",
     "reflect-metadata": "^0.1.13",
@@ -76,7 +79,9 @@
     ],
     "moduleNameMapper": {
       "@libs/db/(.*)": "<rootDir>/libs/db/src/$1",
-      "@libs/db": "<rootDir>/libs/db/src"
+      "@libs/db": "<rootDir>/libs/db/src",
+      "@app/common/(.*)": "<rootDir>/libs/common/src/$1",
+      "@app/common": "<rootDir>/libs/common/src"
     }
   }
 }
