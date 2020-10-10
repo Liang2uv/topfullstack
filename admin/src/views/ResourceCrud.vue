@@ -5,6 +5,8 @@
       :data="data.data"
       :option="option"
       :page.sync="page"
+      :upload-before="uploadBefore"
+      :upload-after="uploadAfter"
       @row-save="save"
       @row-update="update"
       @row-del="remove"
@@ -29,6 +31,7 @@ export default class ResourceCrud extends Vue {
     total: 0,
   };
   query: any = {};
+  uploadParams: any = {};
   async changePage({ pageSize = 10, currentPage = 1 }) {
     this.query.page = currentPage;
     this.query.limit = pageSize;
@@ -57,6 +60,16 @@ export default class ResourceCrud extends Vue {
     done();
     this.fetch();
   }
+  uploadBefore(file, done) {
+    done(file)
+  }
+  uploadAfter(res, done, loading, column) {
+    done()
+    this.uploadParams = {
+      [column.prop]: res.url
+    }
+    this.$message.success('上传成功')
+  }
   async fetch() {
     const res = await this.$http.get(`${this.resource}`, {
       params: {
@@ -75,17 +88,17 @@ export default class ResourceCrud extends Vue {
     this.fetchOption();
   }
   async save(row: any, done: any) {
-    const data = JSON.parse(JSON.stringify(row))
-    data.cover = row.cover.length ? row.cover[0].value : null
-    await this.$http.post(`${this.resource}`, data);
+    await this.$http.post(`${this.resource}`, Object.assign({}, row, this.uploadParams));
+    this.uploadParams = {}
     this.$message.success("创建成功");
     this.fetch();
     done();
   }
   async update(row: any, index: any, done: any) {
-    const data = JSON.parse(JSON.stringify(row));
-    delete data.$index;
+    const data = JSON.parse(JSON.stringify(row))
+    delete data.$index
     await this.$http.put(`${this.resource}/${row._id}`, data);
+    this.uploadParams = {}
     this.$message.success("更新成功");
     this.fetch();
     done();

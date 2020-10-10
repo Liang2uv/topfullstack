@@ -17,6 +17,6 @@ export class Episodes {
   @ApiProperty({ description: '文件url' })
   file: string
   
-  @prop({ ref: 'Course' })
+  @prop({ ref: 'Courses' })
   course: Ref<Course>
 }
