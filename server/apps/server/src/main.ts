@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('WEB端API文档')
     .setDescription('WEB端API文档')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
