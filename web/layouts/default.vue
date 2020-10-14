@@ -1,15 +1,16 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="white" flat>
-      <v-container class="py-0 fill-height">
-        <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
+    <v-app-bar app flat>
+      <v-container class="py-0 fill-height" fluid>
+        <v-icon class="mx-4 blue--text">mdi mdi-image-filter-hdr</v-icon>
 
-        <h2>全栈之巅视频网站</h2>
+        <span class="subtitle-1 font-weight">全栈之巅视频网站</span>
 
         <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
           <v-text-field
+            placeholder="搜索..."
             dense
             flat
             hide-details
@@ -17,24 +18,26 @@
             solo-inverted
           ></v-text-field>
         </v-responsive>
-        <v-divider inset vertical class="mx-4"></v-divider>
+        <v-spacer></v-spacer>
         <template v-if="!$store.state.auth.user">
-          <v-btn small color="success" @click.prevent="isShowLoginForm = true">登录</v-btn>
+          <v-btn small color="success" @click.prevent="isShowLoginForm=true">登录</v-btn>
         </template>
         <template v-else>
-          <span class="mr-3">欢迎您：{{ $store.state.auth.user.username }}</span>
+          <span class="mr-3">{{ $store.state.auth.user.username }}</span>
           <v-btn small color="warning" @click.prevent="loginOut">登出</v-btn>
         </template>
+        <v-divider inset vertical class="mx-4"></v-divider>
+        <v-switch v-model="$vuetify.theme.dark" hide-details/>
       </v-container>
     </v-app-bar>
 
-    <v-main class="grey lighten-3">
-      <v-container>
+    <v-main>
+      <v-container fluid>
         <v-row>
           <v-col cols="2">
-            <v-sheet rounded="lg">
+            <v-sheet rounded="lg" outlined>
               <v-list color="transparent">
-                <v-list-item v-for="(n, i) in menus" :key="i" link :to="n.link">
+                <v-list-item v-for="(n, i) in menus" :key="i" link :to="n.link" color="blue">
                   <v-list-item-content>
                     <v-list-item-title>
                       {{ n.text }}

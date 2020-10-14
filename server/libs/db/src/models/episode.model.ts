@@ -8,7 +8,7 @@ import { Course } from "./course.model"
     timestamps: true
   }
 })
-export class Episodes {
+export class Episode {
   @prop()
   @ApiProperty({ description: '课时名称' })
   name: string
@@ -17,6 +17,6 @@ export class Episodes {
   @ApiProperty({ description: '文件url' })
   file: string
   
-  @prop({ ref: 'Courses' })
+  @prop({ ref: 'Course' })
   course: Ref<Course>
 }

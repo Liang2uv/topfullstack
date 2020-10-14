@@ -3,7 +3,7 @@
     <h3>热门课程</h3>
     <v-row>
       <v-col md="3" v-for="c in courses" :key="c._id">
-        <v-card :to="`/courses/${c._id}`" max-width="344">
+        <v-card max-width="344">
           <v-img
             :src="c.cover"
             contain
@@ -14,7 +14,8 @@
           <v-card-subtitle> {{ c.createdAt }} </v-card-subtitle>
 
           <v-card-actions>
-            <v-btn color="orange lighten-2" text> 点击查看 </v-btn>
+            <like-btn type="Course" :object="c._id"></like-btn>
+            <v-btn color="orange lighten-2" text :to="`/courses/${c._id}`"> 点击查看 </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import LikeBtn from '../../components/LikeBtn'
 export default {
   async asyncData({ $axios }) {
     const data = await $axios.$get('courses')

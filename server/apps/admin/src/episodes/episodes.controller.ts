@@ -1,5 +1,5 @@
 import { Course } from '@libs/db/models/course.model';
-import { Episodes } from '@libs/db/models/episode.model';
+import { Episode } from '@libs/db/models/episode.model';
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ReturnModelType } from '@typegoose/typegoose';
@@ -7,13 +7,13 @@ import { Crud } from 'nestjs-mongoose-crud';
 import { InjectModel } from 'nestjs-typegoose';
 
 @Crud({
-  model: Episodes
+  model: Episode
 })
 @Controller('episodes')
 @ApiTags('课时')
 export class EpisodesController {
   constructor(
-    @InjectModel(Episodes) private readonly model: ReturnModelType<typeof Episodes>,
+    @InjectModel(Episode) private readonly model: ReturnModelType<typeof Episode>,
     @InjectModel(Course) private readonly courseModel: ReturnModelType<typeof Course>
   ){}
 

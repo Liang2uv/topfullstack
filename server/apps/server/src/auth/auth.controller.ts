@@ -29,7 +29,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '登录' })
   @UseGuards(AuthGuard('local'))
-  async login(@Body() dto: LoginDto, @Req() req) {
+  async login(@Body() dto: LoginDto, @Req() req: { user: UserDocument }) {
     return {
       token: this.jwtService.sign(String(req.user._id))
     }
