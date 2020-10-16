@@ -29,7 +29,7 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/login.js', ssr: true},
-    { src: '~/plugins/vuetify.js'}
+    { src: '~/plugins/axios' }
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -52,6 +52,12 @@ export default {
     '@nuxtjs/auth-next'
   ],
   auth: {
+    redirect: {
+      // 退出登录之后跳转到的页面
+      logout: false,
+      // 登录成功之后跳转到的页面
+      home: false
+    },
     strategies: {
       local: {
         token: {
@@ -65,7 +71,7 @@ export default {
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
-          logout: { url: '/auth/logout', method: 'post' },
+          logout: false,
           user: { url: '/auth/user', method: 'get' }
         }
       }
